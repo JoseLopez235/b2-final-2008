@@ -8,6 +8,9 @@
 <section id="doctor-patients">
   <%= content_tag :h1, "Patients" %>
   <% @doctor.patients.each do |patient| %>
-    <%= content_tag :h2, patient.name %>
+    <section id="patient-<%= patient.id %>">
+      <%= content_tag :h2, patient.name %>
+      <%= button_to(name = "Remove Patient", "/doctors/#{@doctor.id}/#{patient.id}", method: :delete) %>
+    </section>
   <% end %>
 </section>
