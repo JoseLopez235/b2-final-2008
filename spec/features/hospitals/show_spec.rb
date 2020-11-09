@@ -1,12 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Hospital, type: :model do
-  describe "Relationships" do
-    it {should (have_many :doctors)}
-  end
-
-  describe "Instance Methods" do
-    it ".uniq_university" do
+describe "As a visitor" do
+  describe "When I visit a hospital's show page" do
+    it "I see the hospital's name, I see the number of doctors that work at this hospital, and I see a unique list of universities that this hospital's doctors attended" do
       hospital = Hospital.create!(name: "Grey Sloan Memorial Hospital")
       doctor_1 = Doctor.create!(name: "Meredith Grey", specialty: "General Surgery", university: "Harvard University", hospital_id: hospital.id)
       doctor_2 = Doctor.create!(name: "Alex Karev", specialty: "Pediatric Surgery", university: "Johns Hopkins University", hospital_id: hospital.id)
@@ -14,8 +10,14 @@ RSpec.describe Hospital, type: :model do
       doctor_4 = Doctor.create!(name: "Derek McDreamy Shepherd", specialty: "Attending Surgeon", university: "University of Pennsylvania", hospital_id: hospital.id)
       doctor_5 = Doctor.create!(name: "Jose Lopez", specialty: "Brain Surgeon", university: "Harvard University", hospital_id: hospital.id)
 
-      expecting = ["Harvard University", "Johns Hopkins University", "Stanford University", "University of Pennsylvania"]
-      expect(hospital.uniq_university).to eq(expecting)
+      visit "hospitals/#{hospital.id}"
+
+      expect(page).to have_content(hospital.name)
+      expect(page).to have_content("Number of Doctors: 5")
+      expect(page).to have_content(doctor_1.university)
+      expect(page).to have_content(doctor_2.university)
+      expect(page).to have_content(doctor_3.university)
+      expect(page).to have_content(doctor_4.university)
     end
   end
 end
