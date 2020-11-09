@@ -1,0 +1,8 @@
+<body>
+  <%= content_tag :h1, "Hospital: #{@hospital.name}" %>
+  <%= content_tag :h1, "Number of Doctors: #{@hospital.doctors.count}" %>
+  <% content_tag :h1, "Universitys:" %>
+  <% @hospital.uniq_university.each do |university| %>
+    <li><%= university %></li>
+  <% end %>
+</body>

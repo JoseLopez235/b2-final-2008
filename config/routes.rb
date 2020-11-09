@@ -3,4 +3,7 @@ Rails.application.routes.draw do
 
   #doctors
   get '/doctors/:id', to: 'doctors#show'
+
+  #hospitals
+  get '/hospitals/:id', to: 'hospitals#show'
 end
