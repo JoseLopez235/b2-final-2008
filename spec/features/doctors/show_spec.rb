@@ -34,5 +34,22 @@ describe "As a visitor" do
       expect(page).to have_content(patient_3.name)
       expect(page).to have_content(patient_4.name)
     end
+
+    it "should be able to remove a patient form the doctors list" do
+      hospital = Hospital.create!(name: "Grey Sloan Memorial Hospital")
+      doctor = Doctor.create!(name: "Meredith Grey", specialty: "General Surgery", university: "Harvard University", hospital_id: hospital.id)
+      patient_1 = doctor.patients.create!(name: "Katie Bryce", age: 24)
+      patient_2 = doctor.patients.create!(name: "Denny Duquette", age: 39)
+      patient_3 = doctor.patients.create!(name: "Rebecca Pope", age: 32)
+      patient_4 = doctor.patients.create!(name: "Zola Shepherd", age: 2)
+      visit "/doctors/#{doctor.id}"
+
+      expect(page).to have_content(patient_1.name)
+      within "#patient-#{patient_1.id}" do
+        expect(page).to have_button("Remove Patient")
+        click_button "Remove Patient"
+      end
+      expect(page).to_not have_content(patient_1.name)
+    end
   end
 end
