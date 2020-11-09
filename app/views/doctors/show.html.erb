@@ -1,0 +1,13 @@
+<section id="doctor-info">
+  <%= content_tag :h1, "Doctor: #{@doctor.name}" %>
+  <%= content_tag :h1, "Doctor: #{@doctor.specialty}" %>
+  <%= content_tag :h1, "Doctor: #{@doctor.university}" %>
+  <%= content_tag :h1, "Doctor: #{@doctor.hospital.name}" %>
+</section>
+
+<section id="doctor-patients">
+  <%= content_tag :h1, "Patients" %>
+  <% @doctor.patients.each do |patient| %>
+    <%= content_tag :h2, patient.name %>
+  <% end %>
+</section>
