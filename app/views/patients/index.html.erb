@@ -1,0 +1,7 @@
+<%= content_tag :h1, "Patients" %>
+
+<section id="patients-order">
+<% Patient.patients_order.each do |patient| %>
+  <%= "#{patient.name}, Age: #{patient.age}" %>
+<% end %>
+</section>
